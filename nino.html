@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niños - Mis Emociones, Diario y Tareas | RecuerdaMe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-nino">
+  <a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
+
+  <header class="site-header site-header-nino">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>RecuerdaMe</span>
+      </a>
+      <a href="index.html" class="btn btn-header-switch">← Cambiar perfil</a>
+    </div>
+  </header>
+
+  <main id="contenido-principal" class="container">
+    <!-- Encabezado ilustrado estilo "Mis Emociones" -->
+    <section class="kid-hero-banner" aria-labelledby="titulo-nino-hero">
+      <div class="kid-hero-characters" aria-hidden="true">
+        <svg width="68" height="68" viewBox="0 0 64 64" fill="none">
+          <polygon points="32,4 39,20 57,22 44,34 47,52 32,43 17,52 20,34 7,22 25,20" fill="#FACC15" stroke="#123973" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="27" cy="28" r="2.2" fill="#123973"/>
+          <circle cx="37" cy="28" r="2.2" fill="#123973"/>
+          <ellipse cx="23" cy="32" rx="3" ry="1.8" fill="#F472B6"/>
+          <ellipse cx="41" cy="32" rx="3" ry="1.8" fill="#F472B6"/>
+          <path d="M28 34 Q32 39 36 34" stroke="#123973" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        </svg>
+        <svg width="68" height="68" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="18" fill="#FB923C" stroke="#123973" stroke-width="3"/>
+          <path d="M32 4V10M32 54V60M4 32H10M54 32H60M12 12L17 17M47 47L52 52M52 12L47 17M17 47L12 52" stroke="#FB923C" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="27" cy="30" r="2.2" fill="#123973"/>
+          <circle cx="37" cy="30" r="2.2" fill="#123973"/>
+          <ellipse cx="23" cy="34" rx="3" ry="1.8" fill="#F472B6"/>
+          <ellipse cx="41" cy="34" rx="3" ry="1.8" fill="#F472B6"/>
+          <path d="M27 36 Q32 42 37 36" stroke="#123973" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        </svg>
+        <svg width="74" height="68" viewBox="0 0 72 64" fill="none">
+          <path d="M10 46 A26 26 0 0 1 62 46" stroke="#E11D48" stroke-width="6" stroke-linecap="round"/>
+          <path d="M16 46 A20 20 0 0 1 56 46" stroke="#FACC15" stroke-width="6" stroke-linecap="round"/>
+          <path d="M22 46 A14 14 0 0 1 50 46" stroke="#22C55E" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="31" cy="24" r="2" fill="#123973"/>
+          <circle cx="41" cy="24" r="2" fill="#123973"/>
+          <path d="M33 27 Q36 31 39 27" stroke="#123973" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          <circle cx="12" cy="48" r="7" fill="#FFFFFF" stroke="#123973" stroke-width="2.5"/>
+          <circle cx="60" cy="48" r="7" fill="#FFFFFF" stroke="#123973" stroke-width="2.5"/>
+        </svg>
+      </div>
+
+      <h1 id="titulo-nino-hero" class="kid-display-title">MIS TAREAS Y EMOCIONES</h1>
+      <p class="kid-subtitle">¡UN DÍA DIVERTIDO PARA CUMPLIR TUS RETOS Y GANAR STICKERS!</p>
+
+      <div class="sticker-seal" aria-hidden="true">
+        <span>★ GARANTIZADO ★</span>
+      </div>
+    </section>
+
+    <div id="live-status" class="sr-status-box" role="status" aria-live="polite"></div>
+
+    <!-- Sección interactiva: ¿Cómo me siento hoy? + Consejos + Diario para padres -->
+    <section class="kid-box" aria-labelledby="titulo-emociones">
+      <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.5rem;">
+        <h2 id="titulo-emociones" class="kid-section-title" style="margin:0;">¿Cómo me siento hoy?</h2>
+        <span id="emocion-actual-badge" class="badge badge-done">Hoy me siento: ¡Muy Feliz!</span>
+      </div>
+      <p style="margin:0.4rem 0 0.9rem; font-weight:700;">Toca al personaje que muestra tu emoción de hoy:</p>
+
+      <!-- Selector de 5 emociones -->
+      <div id="selector-emociones" class="emotions-grid"></div>
+
+      <!-- Consejo dinámico según la emoción elegida -->
+      <div id="consejo-emocion-box" class="advice-box" aria-live="polite"></div>
+
+      <!-- Diario del niño para escribir por qué se siente así -->
+      <form id="form-diario-emocion" class="diary-form-box" novalidate>
+        <div class="form-group" style="margin-bottom:0.75rem;">
+          <label id="label-diario-texto" for="input-diario-texto" style="font-family:'Fredoka','Nunito',sans-serif; font-size:1.15rem; color:#123973;">
+            Mi Diario: ¿Por qué me siento así hoy?
+          </label>
+          <textarea id="input-diario-texto" rows="3" placeholder="Escribe aquí lo que pasó hoy para contárselo a mamá o papá..." required aria-describedby="error-diario-texto"></textarea>
+          <div id="error-diario-texto" class="error-msg" role="alert"></div>
+        </div>
+        <button type="submit" class="btn btn-kid-action">Guardar en mi diario</button>
+      </form>
+
+      <!-- Apartado de revisión para mamá y papá -->
+      <div class="parent-diary-section" aria-labelledby="titulo-diario-padres">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+          <h3 id="titulo-diario-padres" style="margin:0; font-family:'Fredoka','Nunito',sans-serif; font-size:1.25rem; color:#123973;">
+            Diario
+          </h3>
+          <span class="parent-tag">Revisión familiar</span>
+        </div>
+        <div id="lista-diario-padres" class="diary-entries-list"></div>
+      </div>
+    </section>
+
+    <!-- Banner de Racha y Stickers ganados -->
+    <section class="streak-banner kid-streak-box" aria-labelledby="texto-racha">
+      <div style="flex:1 1 280px;">
+        <h2 id="texto-racha" class="streak-count" style="margin:0; color:#123973;">Racha activa: 5 días seguidos</h2>
+        <p id="texto-progreso" style="margin:0.35rem 0 0.65rem; font-weight:800;">Cargando progreso...</p>
+        <div class="progress-bar-wrap">
+          <div id="barra-progreso" class="progress-bar-fill" role="progressbar" aria-label="Progreso de actividades del día" aria-valuemin="0" aria-valuemax="100" aria-valuenow="33" style="width:33%;"></div>
+        </div>
+        <div class="week-strip" aria-label="Días de racha de la semana">
+          <span class="week-day week-day-active">Lun ★</span>
+          <span class="week-day week-day-active">Mar ★</span>
+          <span class="week-day week-day-active">Mié ★</span>
+          <span class="week-day week-day-active">Jue ★</span>
+          <span class="week-day week-day-active">Vie ★</span>
+          <span class="week-day">Sáb</span>
+          <span class="week-day">Dom</span>
+        </div>
+      </div>
+
+      <div class="stickers-album" aria-label="Stickers ganados hoy">
+        <div style="font-weight:800; color:#123973; margin-bottom:0.4rem;">Mis Stickers de Hoy:</div>
+        <div id="album-stickers" class="stickers-row"></div>
+      </div>
+
+      <button type="button" id="btn-abrir-modal-nino" class="btn btn-kid-action">
+        + Agregar Tarea o Recordatorio
+      </button>
+    </section>
+
+    <!-- Sección 1: Tareas del hogar -->
+    <section aria-labelledby="titulo-hogar">
+      <h2 id="titulo-hogar" class="kid-section-title">Tareas del Hogar</h2>
+      <div id="lista-tareas-hogar" class="grid-2"></div>
+    </section>
+
+    <!-- Sección 2: Recordatorios diarios -->
+    <section aria-labelledby="titulo-recordatorios" style="margin-top:2.25rem;">
+      <h2 id="titulo-recordatorios" class="kid-section-title">Recordatorios Diarios (Aseo y Rutina)</h2>
+      <div id="lista-recordatorios-nino" class="grid-2"></div>
+    </section>
+
+    <!-- Sección 3: ¿Cómo lo hago? (Guías visuales paso a paso) -->
+    <section aria-labelledby="titulo-como-lo-hago" style="margin-top:2.5rem;">
+      <div class="kid-box" style="background-color:#FEF9C3; margin-bottom:1.25rem;">
+        <h2 id="titulo-como-lo-hago" class="kid-section-title" style="margin:0;">¿Cómo lo hago?</h2>
+        <p style="margin:0.35rem 0 0; font-weight:700;">
+          Mira los dibujos paso a paso para aprender a hacer estas actividades tú solo:
+        </p>
+      </div>
+      <div id="lista-como-lo-hago" class="grid-howto"></div>
+    </section>
+  </main>
+
+  <!-- Ventana Emergente: Agregar tarea o recordatorio visual -->
+  <dialog id="modal-nino" class="modal-dialog" aria-labelledby="titulo-modal-nino">
+    <div class="modal-header modal-header-kid">
+      <h2 id="titulo-modal-nino" style="margin:0; font-size:1.3rem;">Nueva Actividad</h2>
+      <button type="button" id="btn-cerrar-modal-nino" class="modal-close-btn" aria-label="Cerrar ventana">✕ Cerrar</button>
+    </div>
+    <div class="modal-body">
+      <form id="form-modal-nino" novalidate>
+        <div class="form-group">
+          <span style="font-weight:700;">Opciones rápidas (1 clic):</span>
+          <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+            <button type="button" class="btn btn-outline" data-preset-titulo="Barrer mi cuarto" data-preset-tipo="hogar" data-preset-icono="barrer">Barrer</button>
+            <button type="button" class="btn btn-outline" data-preset-titulo="Trapear el piso" data-preset-tipo="hogar" data-preset-icono="trapear">Trapear</button>
+            <button type="button" class="btn btn-outline" data-preset-titulo="Lavar los trastes" data-preset-tipo="hogar" data-preset-icono="trastes">Lavar trastes</button>
+            <button type="button" class="btn btn-outline" data-preset-titulo="Lavarse los dientes" data-preset-tipo="recordatorio" data-preset-icono="dientes">Lavarse los dientes</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-nino-tipo">1. ¿Dónde se guarda? *</label>
+          <select id="modal-nino-tipo">
+            <option value="hogar">Tareas del Hogar (trapear, barrer, trastes...)</option>
+            <option value="recordatorio">Recordatorios Diarios (lavarse los dientes, tarea...)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-nino-titulo">2. Nombre de la tarea o recordatorio *</label>
+          <input type="text" id="modal-nino-titulo" placeholder="Ejemplo: Lavarse los dientes" required aria-describedby="error-modal-nino-titulo">
+          <div id="error-modal-nino-titulo" class="error-msg" role="alert"></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="modal-nino-icono">3. Dibujo visual</label>
+            <select id="modal-nino-icono">
+              <option value="barrer">Escoba (Barrer)</option>
+              <option value="trapear">Trapeador (Trapear)</option>
+              <option value="trastes">Platos limpios (Lavar trastes)</option>
+              <option value="dientes">Cepillo y brillo (Lavarse los dientes)</option>
+              <option value="tarea">Cuaderno (Tarea escolar)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="modal-nino-hora">4. Hora</label>
+            <input type="time" id="modal-nino-hora" value="16:00">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-kid-action btn-full">Guardar Actividad</button>
+      </form>
+    </div>
+  </dialog>
+
+  <footer class="site-footer site-footer-nino">
+    <div class="footer-inner" style="justify-content:center; text-align:center;">
+      <p style="margin:0;">RecuerdaMe · Espacio Infantil</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

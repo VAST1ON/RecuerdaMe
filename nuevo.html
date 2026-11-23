@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agregar Recordatorio - RecuerdaMe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>RecuerdaMe</span>
+      </a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="index.html">Menú Principal</a></li>
+          <li><a href="adulto.html">Adulto Mayor</a></li>
+          <li><a href="nino.html">Niños</a></li>
+          <li><a href="nuevo.html" aria-current="page">Agregar</a></li>
+          <li><a href="accesibilidad.html">Accesibilidad</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido-principal" class="container">
+    <h1>Agregar Nuevo Recordatorio</h1>
+    <p class="lead">
+      Completa los campos obligatorios marcados con asterisco (*). Si falta algún dato, te indicaremos cómo corregirlo.
+    </p>
+
+    <div id="live-status" class="sr-status-box" role="status" aria-live="polite"></div>
+
+    <form id="form-recordatorio" class="form-card" novalidate>
+      <fieldset>
+        <legend>1. ¿Para quién es este recordatorio? *</legend>
+        <div class="radio-row">
+          <label class="radio-label" for="perfil-adulto">
+            <input type="radio" id="perfil-adulto" name="perfil" value="adulto" checked>
+            <span>Adulto Mayor (Medicina)</span>
+          </label>
+          <label class="radio-label" for="perfil-nino">
+            <input type="radio" id="perfil-nino" name="perfil" value="nino">
+            <span>Niños (Tarea o recordatorio)</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="form-group">
+        <label for="titulo">2. Nombre de la medicina o actividad *</label>
+        <span id="ayuda-titulo" class="help-text">Ejemplo: "Paracetamol 500 mg" o "Lavar los trastes".</span>
+        <input type="text" id="titulo" name="titulo" required aria-describedby="ayuda-titulo error-titulo">
+        <div id="error-titulo" class="error-msg" role="alert"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="horario">3. Hora del recordatorio *</label>
+        <span id="ayuda-horario" class="help-text">Usa el selector de hora (ejemplo: 08:30).</span>
+        <input type="time" id="horario" name="horario" required aria-describedby="ayuda-horario error-horario">
+        <div id="error-horario" class="error-msg" role="alert"></div>
+      </div>
+
+      <div id="campos-adulto">
+        <div class="form-group">
+          <label for="forma-pastilla">4. Forma visual de la medicina</label>
+          <select id="forma-pastilla" name="forma-pastilla">
+            <option value="redonda">Redonda</option>
+            <option value="pildora">Píldora</option>
+            <option value="capsula">Cápsula</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="color-pastilla">5. Color de la medicina</label>
+          <select id="color-pastilla" name="color-pastilla">
+            <option value="#FFFFFF">Blanca</option>
+            <option value="#BAE6FD">Azul cielo</option>
+            <option value="#FDE047">Amarilla</option>
+            <option value="#FBCFE8">Rosa</option>
+            <option value="#BBF7D0">Verde menta</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="dias-tratamiento">6. ¿Por cuántos días se toma?</label>
+          <input type="number" id="dias-tratamiento" name="dias-tratamiento" min="1" max="90" value="7">
+        </div>
+      </div>
+
+      <div id="campos-nino" hidden>
+        <div class="form-group">
+          <label for="categoria-nino">4. Sección en el panel de niños</label>
+          <select id="categoria-nino" name="categoria-nino">
+            <option value="hogar">Tareas del Hogar (trapear, barrer, trastes)</option>
+            <option value="recordatorio">Recordatorios Diarios (lavarse los dientes)</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Guardar recordatorio</button>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p style="margin:0;">RecuerdaMe · Proyecto ODS 3 (Salud y Bienestar) · Universidad de Guadalajara</p>
+      <a href="accesibilidad.html">Declaración de Accesibilidad y Ayuda</a>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
