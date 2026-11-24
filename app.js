@@ -354,6 +354,7 @@ function setupModal(openBtnId, dialogId, closeBtnId) {
 
   openBtn.addEventListener("click", () => {
     dialog.showModal();
+    enfocarPrimerCampo(dialog);
   });
 
   if (closeBtn) {
@@ -461,7 +462,7 @@ function renderAdulto() {
               <span class="pill-graphic shape-${med.forma}" style="background-color:${med.colorHex};"></span>
               <div>
                 <div><strong>Cómo se ve:</strong> ${formaLabel} · Color ${med.colorNombre}</div>
-                <div style="font-size:0.95rem; color:var(--text-muted);">Hora: ${med.horario} hrs</div>
+                <div style="font-size:0.95rem; color:var(--muted);">Hora: ${med.horario} hrs</div>
               </div>
             </div>
 
@@ -663,7 +664,7 @@ function renderDiarioPadres() {
               ${miniSvg}
               <div>
                 <strong style="font-size:1.05rem;">Se sintió: ${entry.emocionNombre}</strong>
-                <div style="font-size:0.88rem; color:var(--text-muted); font-weight:700;">${entry.fecha}</div>
+                <div style="font-size:0.88rem; color:var(--muted); font-weight:700;">${entry.fecha}</div>
               </div>
             </div>
             ${reviewBtn}
@@ -780,6 +781,8 @@ function renderNino() {
         </button>
       `;
     }).join("");
+
+    aplicarRoving(emotionsContainer, "[data-emo-id]");
 
     emotionsContainer.querySelectorAll("[data-emo-id]").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -1029,6 +1032,8 @@ function initResetButton() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  initTema();
+  initTeclado();
   renderHomeMenu();
   renderAdulto();
   initAdultoModals();
@@ -1068,3 +1073,161 @@ document.addEventListener("click", e => {
   const med = e.target.closest(".btn-primary[data-toggle-med]");
   if (med) lanzarConfeti(med, 16, ["#0B6E4F", "#58CC02", "#FACC15", "#38BDF8"]);
 }, true);
+
+/* =====================================================================
+   MODO OSCURO OPCIONAL
+   - Si la persona nunca eligió, se usa el tema de su dispositivo.
+   - Si elige con el botón del encabezado, se guarda y se respeta siempre.
+   (El <head> de cada página aplica el tema antes de pintar para evitar parpadeos.)
+   ===================================================================== */
+const TEMA_KEY = "recuerdame_tema";
+
+const ICONO_LUNA = `<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+const ICONO_SOL = `<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>`;
+
+function leerTemaGuardado() {
+  try {
+    const t = localStorage.getItem(TEMA_KEY);
+    return t === "oscuro" || t === "claro" ? t : null;
+  } catch {
+    return null;
+  }
+}
+
+function temaDelSistema() {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro";
+}
+
+function temaActual() {
+  return document.documentElement.getAttribute("data-theme") === "dark" ? "oscuro" : "claro";
+}
+
+function actualizarBotonTema() {
+  const btn = document.getElementById("btn-tema");
+  if (!btn) return;
+  // El texto dice lo que pasará al activarlo (no lleva aria-pressed para no repetir el estado).
+  btn.innerHTML =
+    temaActual() === "oscuro"
+      ? `${ICONO_SOL}<span>Modo claro</span>`
+      : `${ICONO_LUNA}<span>Modo oscuro</span>`;
+}
+
+function aplicarTema(tema) {
+  document.documentElement.setAttribute("data-theme", tema === "oscuro" ? "dark" : "light");
+  actualizarBotonTema();
+}
+
+function initTema() {
+  aplicarTema(leerTemaGuardado() || temaDelSistema());
+
+  const encabezado = document.querySelector(".header-inner");
+  if (encabezado && !document.getElementById("btn-tema")) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.id = "btn-tema";
+    btn.className = "btn btn-header-switch btn-theme";
+    encabezado.appendChild(btn);
+    actualizarBotonTema();
+
+    btn.addEventListener("click", () => {
+      const nuevo = temaActual() === "oscuro" ? "claro" : "oscuro";
+      try {
+        localStorage.setItem(TEMA_KEY, nuevo);
+      } catch {
+        /* sin almacenamiento: el cambio dura solo esta visita */
+      }
+      aplicarTema(nuevo);
+      announce(nuevo === "oscuro" ? "Modo oscuro activado." : "Modo claro activado.");
+    });
+  }
+
+  // Si nunca eligió, seguir los cambios del dispositivo en vivo
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  if (mq.addEventListener) {
+    mq.addEventListener("change", () => {
+      if (!leerTemaGuardado()) aplicarTema(temaDelSistema());
+    });
+  }
+}
+
+/* =====================================================================
+   TECLADO
+   1) Al abrir una ventana emergente el foco va al primer campo.
+   2) Al pulsar un botón que vuelve a dibujar la lista, el foco regresa
+      al mismo botón (antes se perdía y había que volver a tabular desde el inicio).
+   3) Flechas ← → ↑ ↓, Inicio y Fin dentro del selector de emociones.
+   Esc cierra las ventanas y Tab/Shift+Tab se quedan dentro de ellas (lo hace <dialog>).
+   ===================================================================== */
+function enfocarPrimerCampo(dialog) {
+  const campo = dialog.querySelector(
+    ".modal-body input:not(.sr-only):not([type=hidden]), .modal-body select, .modal-body textarea, .modal-body button"
+  );
+  if (campo) campo.focus();
+}
+
+// Botones cuya pulsación redibuja el contenido; se identifican por su atributo data-*
+const ATRIBUTOS_FOCO = ["data-emo-id", "data-kid-id", "data-toggle-med", "data-learn-guide", "data-review-diary"];
+
+function initTeclado() {
+  // Fase de captura: se anota el botón antes de que el render lo reemplace
+  document.addEventListener(
+    "click",
+    e => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      const atributo = ATRIBUTOS_FOCO.find(a => btn.hasAttribute(a));
+      if (!atributo) return;
+      const valor = btn.getAttribute(atributo);
+
+      setTimeout(() => {
+        if (btn.isConnected) return; // no se redibujó: el foco sigue donde estaba
+        const nuevo = [...document.querySelectorAll(`[${atributo}]`)].find(
+          el => el.getAttribute(atributo) === valor
+        );
+        if (nuevo) nuevo.focus({ preventScroll: true });
+      }, 0);
+    },
+    true
+  );
+
+  // Flechas dentro de un grupo marcado con data-roving
+  document.addEventListener("keydown", e => {
+    const grupo = e.target.closest ? e.target.closest("[data-roving]") : null;
+    if (!grupo || e.altKey || e.ctrlKey || e.metaKey) return;
+
+    const items = [...grupo.querySelectorAll("[data-emo-id]")];
+    const actual = items.indexOf(document.activeElement);
+    if (actual < 0) return;
+
+    let destino;
+    switch (e.key) {
+      case "ArrowRight":
+      case "ArrowDown":
+        destino = (actual + 1) % items.length;
+        break;
+      case "ArrowLeft":
+      case "ArrowUp":
+        destino = (actual - 1 + items.length) % items.length;
+        break;
+      case "Home":
+        destino = 0;
+        break;
+      case "End":
+        destino = items.length - 1;
+        break;
+      default:
+        return;
+    }
+    e.preventDefault();
+    items.forEach((el, i) => (el.tabIndex = i === destino ? 0 : -1));
+    items[destino].focus();
+  });
+}
+
+// Un solo punto de Tab para el grupo: el elegido (o el primero). Las flechas hacen el resto.
+function aplicarRoving(contenedor, selector) {
+  const items = [...contenedor.querySelectorAll(selector)];
+  if (!items.length) return;
+  const activo = items.find(el => el.getAttribute("aria-pressed") === "true") || items[0];
+  items.forEach(el => (el.tabIndex = el === activo ? 0 : -1));
+}

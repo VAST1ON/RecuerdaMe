@@ -3,6 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    /* Aplica el tema guardado (o el del dispositivo) antes de pintar, para evitar parpadeos */
+    (function () {
+      try {
+        var t = localStorage.getItem("recuerdame_tema");
+        if (t !== "oscuro" && t !== "claro") {
+          t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro";
+        }
+        document.documentElement.setAttribute("data-theme", t === "oscuro" ? "dark" : "light");
+      } catch (e) {}
+    })();
+  </script>
   <title>Adulto Mayor - Pastillero Visual | RecuerdaMe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +35,7 @@
     </div>
   </header>
 
-  <main id="contenido-principal" class="container">
+  <main id="contenido-principal" class="container" tabindex="-1">
     <h1>Mi Pastillero y Pendientes</h1>
     <p class="lead">
       Revisa cómo se ve cada medicina, cuántos días llevas de tratamiento y cuántos te faltan.
@@ -78,7 +91,7 @@
           <span id="preview-pill-shape" class="pill-graphic shape-redonda" style="background-color:#FFFFFF;"></span>
           <div>
             <strong>Vista previa de tu medicina:</strong>
-            <div id="preview-pill-text" style="color:var(--text-muted); font-weight:600;">Redonda · Color Blanca · 7 días</div>
+            <div id="preview-pill-text" style="color:var(--muted); font-weight:600;">Redonda · Color Blanca · 7 días</div>
           </div>
         </div>
       </div>

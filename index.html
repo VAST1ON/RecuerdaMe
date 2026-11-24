@@ -3,6 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    /* Aplica el tema guardado (o el del dispositivo) antes de pintar, para evitar parpadeos */
+    (function () {
+      try {
+        var t = localStorage.getItem("recuerdame_tema");
+        if (t !== "oscuro" && t !== "claro") {
+          t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro";
+        }
+        document.documentElement.setAttribute("data-theme", t === "oscuro" ? "dark" : "light");
+      } catch (e) {}
+    })();
+  </script>
   <title>RecuerdaMe - Elige tu perfil</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +34,7 @@
     </div>
   </header>
 
-  <main id="contenido-principal" class="container">
+  <main id="contenido-principal" class="container" tabindex="-1">
     <div class="menu-hero">
       <h1>¿Quién va a usar RecuerdaMe?</h1>
       <p class="lead" style="margin-inline:auto;">
@@ -62,7 +75,7 @@
           <p style="margin:0;">
             Mis emociones, tareas del hogar (barrer, trapear, trastes), recordatorios como lavarse los dientes y stickers.
           </p>
-          <p id="resumen-nino" style="font-weight:700; color:var(--secondary); margin:0;">Cargando...</p>
+          <p id="resumen-nino" style="font-weight:700; color:var(--ink); margin:0;">Cargando...</p>
           <a href="nino.html" class="btn btn-secondary btn-full">Entrar a Niños</a>
         </article>
       </div>

@@ -3,6 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    /* Aplica el tema guardado (o el del dispositivo) antes de pintar, para evitar parpadeos */
+    (function () {
+      try {
+        var t = localStorage.getItem("recuerdame_tema");
+        if (t !== "oscuro" && t !== "claro") {
+          t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro";
+        }
+        document.documentElement.setAttribute("data-theme", t === "oscuro" ? "dark" : "light");
+      } catch (e) {}
+    })();
+  </script>
   <title>Niños - Mis Emociones, Diario y Tareas | RecuerdaMe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +35,7 @@
     </div>
   </header>
 
-  <main id="contenido-principal" class="container">
+  <main id="contenido-principal" class="container" tabindex="-1">
     <!-- Encabezado ilustrado estilo "Mis Emociones" -->
     <section class="kid-hero-banner" aria-labelledby="titulo-nino-hero">
       <div class="kid-hero-characters" aria-hidden="true">
@@ -74,7 +87,8 @@
       <p style="margin:0.4rem 0 0.9rem; font-weight:700;">Toca al personaje que muestra tu emoción de hoy:</p>
 
       <!-- Selector de 5 emociones -->
-      <div id="selector-emociones" class="emotions-grid"></div>
+      <p id="ayuda-emociones" class="sr-only">Usa las flechas del teclado para moverte entre las emociones y Enter para elegir una.</p>
+      <div id="selector-emociones" class="emotions-grid" role="group" aria-label="Elige cómo te sientes hoy" aria-describedby="ayuda-emociones" data-roving></div>
 
       <!-- Consejo dinámico según la emoción elegida -->
       <div id="consejo-emocion-box" class="advice-box" aria-live="polite"></div>
@@ -82,7 +96,7 @@
       <!-- Diario del niño para escribir por qué se siente así -->
       <form id="form-diario-emocion" class="diary-form-box" novalidate>
         <div class="form-group" style="margin-bottom:0.75rem;">
-          <label id="label-diario-texto" for="input-diario-texto" style="font-family:'Fredoka','Nunito',sans-serif; font-size:1.15rem; color:#123973;">
+          <label id="label-diario-texto" for="input-diario-texto" style="font-family:'Fredoka','Nunito',sans-serif; font-size:1.15rem; color:var(--ink);">
             Mi Diario: ¿Por qué me siento así hoy?
           </label>
           <textarea id="input-diario-texto" rows="3" placeholder="Escribe aquí lo que pasó hoy para contárselo a mamá o papá..." required aria-describedby="error-diario-texto"></textarea>
@@ -94,7 +108,7 @@
       <!-- Apartado de revisión para mamá y papá -->
       <div class="parent-diary-section" aria-labelledby="titulo-diario-padres">
         <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
-          <h3 id="titulo-diario-padres" style="margin:0; font-family:'Fredoka','Nunito',sans-serif; font-size:1.25rem; color:#123973;">
+          <h3 id="titulo-diario-padres" style="margin:0; font-family:'Fredoka','Nunito',sans-serif; font-size:1.25rem; color:var(--ink);">
             Diario
           </h3>
           <span class="parent-tag">Revisión familiar</span>
@@ -106,7 +120,7 @@
     <!-- Banner de Racha y Stickers ganados -->
     <section class="streak-banner kid-streak-box" aria-labelledby="texto-racha">
       <div style="flex:1 1 280px;">
-        <h2 id="texto-racha" class="streak-count" style="margin:0; color:#123973;">Racha activa: 5 días seguidos</h2>
+        <h2 id="texto-racha" class="streak-count" style="margin:0; color:var(--ink);">Racha activa: 5 días seguidos</h2>
         <p id="texto-progreso" style="margin:0.35rem 0 0.65rem; font-weight:800;">Cargando progreso...</p>
         <div class="progress-bar-wrap">
           <div id="barra-progreso" class="progress-bar-fill" role="progressbar" aria-label="Progreso de actividades del día" aria-valuemin="0" aria-valuemax="100" aria-valuenow="33" style="width:33%;"></div>
@@ -123,7 +137,7 @@
       </div>
 
       <div class="stickers-album" aria-label="Stickers ganados hoy">
-        <div style="font-weight:800; color:#123973; margin-bottom:0.4rem;">Mis Stickers de Hoy:</div>
+        <div style="font-weight:800; color:var(--ink); margin-bottom:0.4rem;">Mis Stickers de Hoy:</div>
         <div id="album-stickers" class="stickers-row"></div>
       </div>
 
@@ -146,7 +160,7 @@
 
     <!-- Sección 3: ¿Cómo lo hago? (Guías visuales paso a paso) -->
     <section aria-labelledby="titulo-como-lo-hago" style="margin-top:2.5rem;">
-      <div class="kid-box" style="background-color:#FEF9C3; margin-bottom:1.25rem;">
+      <div class="kid-box" style="background-color:var(--soft-yellow); margin-bottom:1.25rem;">
         <h2 id="titulo-como-lo-hago" class="kid-section-title" style="margin:0;">¿Cómo lo hago?</h2>
         <p style="margin:0.35rem 0 0; font-weight:700;">
           Mira los dibujos paso a paso para aprender a hacer estas actividades tú solo:

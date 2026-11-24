@@ -1,25 +1,50 @@
 /* styles.css - RecuerdaMe v2: botones "3D" estilo Duolingo, accesible (WCAG 2.2 AA) */
 :root {
-    --bg:#F4F7FA;
-    --card:#FFF;
-    --ink:#0F172A;
-    --muted:#334155;
-    --line:#CBD5E1;
-    --line-strong:#64748B;
-    --primary:#0B4F6C;
-    --primary-dark:#06303F;
-    --primary-soft:#E0F2FE;
-    --green:#58CC02;
-    --green-dark:#3F9B00;
-    --green-soft:#DCFCE7;
-    --green-ink:#14532D;
-    --amber:#FEF3C7;
-    --amber-ink:#92400E;
-    --error:#991B1B;
-    --error-bg:#FEE2E2;
+    /* ===== Paleta ADULTOS MAYORES · modo claro =====
+       Fondo crema (menos brillo que el blanco puro), tinta azul-grisácea
+       de contraste alto y verde azulado sereno como color principal. */
+    --bg:#F7F3EA;
+    --card:#FFFDF8;
+    --ink:#1E2A32;
+    --muted:#46555D;
+    --line:#DDD3C0;
+    --line-strong:#75858B;
+    --primary:#1F6A72;
+    --primary-dark:#134148;
+    --primary-soft:#DDEEEF;
+    --on-primary:#FFFFFF;
+    --green:#6CCB3F;
+    --green-dark:#3F8F22;
+    --green-soft:#E1F0DC;
+    --green-ink:#21592B;
+    --amber:#FBEFD0;
+    --amber-ink:#7C4A0A;
+    --error:#9B1C1C;
+    --error-bg:#FBE4E1;
+    --on-green:#0F2F66;
+    --on-green-solid:#FFFFFF;
+    --on-amber-solid:#FFFFFF;
+    --surface-2:#F1EBDD;
+    --soft-sky:#E4F0F1;
+    --soft-yellow:#FBEFD0;
+    --inset-bg:rgba(255,255,255,.7);
+    --field-bg:#FFFFFF;
+    --header-bg:#1F6A72;
+    --footer-bg:#1C2A30;
+    --btn-neutral-bg:#FFFDF8;
+    --btn-neutral-border:#FFFDF8;
+    --btn-neutral-shadow:#B9AE98;
+    --outline:#1F6A72;
+    --outline-shadow:#134148;
+    --cloud:#FFFFFF;
+    --sky:#D8ECF8;
+    --tile-sky:#E3F1FC;
+    --tile-green:#DDF5DF;
+    --tile-orange:#FFE8CF;
+    --tile-white:#FFFFFF;
+    /* Colores fijos de marca (no cambian con el tema) */
     --navy:#123973;
     --navy-dark:#0B254D;
-    --sky:#DDF3FC;
     --yellow:#FACC15;
     --yellow-dark:#C99A00;
     --orange:#FB923C;
@@ -29,7 +54,7 @@
     --font:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
     --display:"Fredoka","Atkinson Hyperlegible",system-ui,sans-serif;
   }
-  
+
   *,*::before,*::after {
     box-sizing:border-box
   }
@@ -64,7 +89,7 @@
     top:-100px;
     left:1rem;
     background:var(--primary);
-    color:#fff;
+    color:var(--on-primary);
     padding:.75rem 1.25rem;
     border-radius:12px;
     font-weight:700;
@@ -75,20 +100,20 @@
     top:1rem
   }
   
-  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible {
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible,[tabindex]:focus-visible {
     outline:var(--focus);
     outline-offset:3px
   }
   
   /* Encabezado */
   .site-header {
-    background:var(--primary);
+    background:var(--header-bg);
     color:#fff;
     padding:.85rem 1rem
   }
   
   .site-header-nino {
-    background:var(--navy)
+    background:var(--header-bg)
   }
   
   .header-inner {
@@ -204,20 +229,20 @@
   
   .btn-primary {
     background:var(--primary);
-    color:#fff;
+    color:var(--on-primary);
     --sh:var(--primary-dark);
     box-shadow:0 4px 0 var(--sh)
   }
   
   .btn-secondary {
     background:var(--green);
-    color:var(--navy);
+    color:var(--on-green);
     --sh:var(--green-dark);
     box-shadow:0 4px 0 var(--sh)
   }
   
   .btn-outline {
-    background:#fff;
+    background:var(--card);
     color:var(--primary);
     border-color:var(--line-strong);
     --sh:var(--line);
@@ -237,9 +262,10 @@
   }
   
   .btn-header-switch {
-    background:#fff;
+    background:var(--btn-neutral-bg);
     color:var(--ink);
-    --sh:#94A3B8;
+    --sh:var(--btn-neutral-shadow);
+    border-color:var(--btn-neutral-border);
     box-shadow:0 3px 0 var(--sh);
     min-height:46px;
     padding:.45rem 1rem
@@ -247,7 +273,7 @@
   
   .btn-kid-action {
     background:var(--green);
-    color:var(--navy);
+    color:var(--on-green);
     font-family:var(--display);
     font-size:1.15rem;
     --sh:var(--green-dark);
@@ -410,7 +436,7 @@
   
   /* Días de tratamiento */
   .treatment-widget {
-    background:#F1F5F9;
+    background:var(--surface-2);
     border:2px solid var(--line);
     border-radius:14px;
     padding:.85rem
@@ -442,13 +468,13 @@
     font-size:.85rem;
     font-weight:700;
     border:2px solid var(--line-strong);
-    background:#fff
+    background:var(--card)
   }
   
   .day-dot-done {
     background:var(--green-ink);
     border-color:var(--green-ink);
-    color:#fff
+    color:var(--on-green-solid)
   }
   
   .day-dot-today {
@@ -504,7 +530,7 @@
     padding:.4rem .5rem;
     border-radius:12px;
     border:2px solid var(--line-strong);
-    background:#fff;
+    background:var(--card);
     font-size:.85rem;
     font-weight:700
   }
@@ -512,12 +538,12 @@
   .week-day-active {
     background:var(--amber-ink);
     border-color:var(--amber-ink);
-    color:#fff
+    color:var(--on-amber-solid)
   }
   
   .progress-bar-wrap {
     width:100%;
-    background:#fff;
+    background:var(--card);
     border:2px solid var(--line-strong);
     border-radius:99px;
     height:24px;
@@ -539,7 +565,7 @@
   }
   
   .menu-choice-card {
-    background:#fff;
+    background:var(--card);
     border:3px solid var(--line-strong);
     border-radius:26px;
     padding:1.75rem 1.5rem;
@@ -562,9 +588,9 @@
   }
   
   .menu-choice-kid {
-    border-color:var(--navy);
-    box-shadow:0 6px 0 var(--navy);
-    background:#F0F9FF
+    border-color:var(--outline);
+    box-shadow:0 6px 0 var(--outline-shadow);
+    background:var(--soft-sky)
   }
   
   .menu-avatar {
@@ -574,7 +600,7 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    border:3px solid var(--navy);
+    border:3px solid var(--outline);
     animation:float 3.2s ease-in-out infinite
   }
   
@@ -585,15 +611,16 @@
   }
   
   .menu-avatar-kid {
-    background:var(--sky)
+    background:var(--tile-sky)
   }
   
   /* ===== MODO NIÑOS ===== */
   body.theme-nino {
     font-family:"Nunito",var(--font);
-    background:var(--sky) radial-gradient(circle at 12% 18%,#fff 0 18px,transparent 19px),radial-gradient(circle at 88% 24%,#fff 0 24px,transparent 25px),radial-gradient(circle at 20% 74%,#fff 0 16px,transparent 17px),radial-gradient(circle at 84% 82%,#fff 0 22px,transparent 23px);
+    background-color:var(--sky);
+    background-image:radial-gradient(circle at 12% 18%,var(--cloud) 0 18px,transparent 19px),radial-gradient(circle at 88% 24%,var(--cloud) 0 24px,transparent 25px),radial-gradient(circle at 20% 74%,var(--cloud) 0 16px,transparent 17px),radial-gradient(circle at 84% 82%,var(--cloud) 0 22px,transparent 23px);
     background-attachment:fixed;
-    color:var(--navy)
+    color:var(--ink)
   }
   
   .theme-nino h2,.theme-nino h3 {
@@ -601,9 +628,9 @@
   }
   
   .kid-hero-banner {
-    background:#fff;
-    border:3px solid var(--navy);
-    box-shadow:0 7px 0 var(--navy);
+    background:var(--card);
+    border:3px solid var(--outline);
+    box-shadow:0 7px 0 var(--outline-shadow);
     border-radius:30px;
     padding:1.5rem 1.25rem;
     text-align:center;
@@ -632,7 +659,7 @@
   .kid-display-title {
     font-family:var(--display);
     font-size:clamp(1.9rem,5.5vw,3rem);
-    color:var(--navy);
+    color:var(--ink);
     letter-spacing:.02em;
     margin:.2rem 0;
     line-height:1.1
@@ -658,14 +685,14 @@
   }
   
   .kid-section-title {
-    color:var(--navy);
+    color:var(--ink);
     font-size:clamp(1.5rem,3.8vw,2rem)
   }
   
   .kid-box {
-    background:#fff;
-    border:3px solid var(--navy);
-    box-shadow:0 6px 0 var(--navy);
+    background:var(--card);
+    border:3px solid var(--outline);
+    box-shadow:0 6px 0 var(--outline-shadow);
     border-radius:26px;
     padding:1.25rem;
     margin-bottom:1.75rem
@@ -678,8 +705,8 @@
   }
   
   .emotion-btn {
-    background:#F0F9FF;
-    border:3px solid var(--navy);
+    background:var(--tile-sky);
+    border:3px solid var(--outline);
     border-radius:22px;
     padding:.8rem .5rem;
     display:flex;
@@ -690,7 +717,7 @@
     font:600 1.05rem var(--display);
     color:var(--navy);
     min-height:120px;
-    box-shadow:0 5px 0 var(--navy);
+    box-shadow:0 5px 0 var(--outline-shadow);
     transition:transform .1s,box-shadow .1s
   }
   
@@ -706,12 +733,12 @@
   
   .emotion-btn:active {
     transform:translateY(5px);
-    box-shadow:0 0 0 var(--navy)
+    box-shadow:0 0 0 var(--outline-shadow)
   }
   
   .emotion-btn[aria-pressed="true"] {
     background:#FEF08A;
-    border-color:var(--navy);
+    border-color:var(--outline);
     outline:4px solid var(--green);
     outline-offset:2px;
     animation:pop .45s
@@ -719,8 +746,8 @@
   
   .advice-box {
     margin-top:1.2rem;
-    background:#FEF9C3;
-    border:3px solid var(--navy);
+    background:var(--soft-yellow);
+    border:3px solid var(--outline);
     border-radius:22px;
     padding:1rem 1.2rem
   }
@@ -733,8 +760,8 @@
   
   .advice-avatar {
     flex-shrink:0;
-    background:#fff;
-    border:3px solid var(--navy);
+    background:var(--tile-white);
+    border:3px solid var(--outline);
     border-radius:50%;
     padding:.4rem;
     display:flex;
@@ -754,8 +781,8 @@
   
   .diary-form-box {
     margin-top:1.2rem;
-    background:#F0F9FF;
-    border:3px dashed var(--navy);
+    background:var(--soft-sky);
+    border:3px dashed var(--outline);
     border-radius:22px;
     padding:1rem 1.2rem
   }
@@ -763,7 +790,7 @@
   .parent-diary-section {
     margin-top:1.25rem;
     padding-top:1.1rem;
-    border-top:3px dotted var(--navy)
+    border-top:3px dotted var(--outline)
   }
   
   .parent-tag {
@@ -782,8 +809,8 @@
   }
   
   .diary-entry-card {
-    background:#fff;
-    border:3px solid var(--navy);
+    background:var(--card);
+    border:3px solid var(--outline);
     border-radius:18px;
     padding:.9rem 1rem
   }
@@ -805,15 +832,15 @@
     margin:0;
     font-weight:700;
     color:var(--ink);
-    background:rgba(255,255,255,.8);
+    background:var(--inset-bg);
     padding:.55rem .75rem;
     border-radius:12px
   }
   
   .kid-streak-box {
-    background:#FEF9C3;
-    border:3px solid var(--navy);
-    box-shadow:0 6px 0 var(--navy);
+    background:var(--soft-yellow);
+    border:3px solid var(--outline);
+    box-shadow:0 6px 0 var(--outline-shadow);
     border-radius:26px
   }
   
@@ -822,8 +849,8 @@
   }
   
   .stickers-album {
-    background:#fff;
-    border:3px dashed var(--navy);
+    background:var(--card);
+    border:3px dashed var(--outline);
     border-radius:20px;
     padding:.8rem 1rem
   }
@@ -838,8 +865,8 @@
     width:52px;
     height:52px;
     border-radius:50%;
-    border:3px solid var(--navy);
-    background:#E0F2FE;
+    border:3px solid var(--outline);
+    background:var(--tile-sky);
     display:inline-flex;
     align-items:center;
     justify-content:center;
@@ -857,10 +884,10 @@
   }
   
   .theme-nino .card {
-    border:3px solid var(--navy);
-    box-shadow:0 6px 0 var(--navy);
+    border:3px solid var(--outline);
+    box-shadow:0 6px 0 var(--outline-shadow);
     border-radius:26px;
-    background:#fff;
+    background:var(--card);
     transition:transform .12s
   }
   
@@ -890,8 +917,8 @@
     width:78px;
     height:78px;
     border-radius:24px;
-    background:#DCFCE7;
-    border:3px solid var(--navy);
+    background:var(--tile-green);
+    border:3px solid var(--outline);
     color:var(--navy);
     display:flex;
     align-items:center;
@@ -906,7 +933,7 @@
   }
   
   .hygiene-illustration {
-    background:#FFEDD5;
+    background:var(--tile-orange);
     transform:rotate(4deg)
   }
   
@@ -918,9 +945,9 @@
   }
   
   .howto-card {
-    background:#fff;
-    border:3px solid var(--navy);
-    box-shadow:0 7px 0 var(--navy);
+    background:var(--card);
+    border:3px solid var(--outline);
+    box-shadow:0 7px 0 var(--outline-shadow);
     border-radius:28px;
     border-top:10px solid var(--yellow);
     padding:1.25rem;
@@ -940,15 +967,15 @@
     align-items:center;
     gap:.85rem;
     padding-bottom:.75rem;
-    border-bottom:3px dashed #93C5FD
+    border-bottom:3px dashed var(--line)
   }
   
   .howto-main-icon {
     width:70px;
     height:70px;
     border-radius:22px;
-    background:#E0F2FE;
-    border:3px solid var(--navy);
+    background:var(--tile-sky);
+    border:3px solid var(--outline);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -968,8 +995,8 @@
     display:flex;
     align-items:center;
     gap:.75rem;
-    background:#F0F9FF;
-    border:3px solid var(--navy);
+    background:var(--soft-sky);
+    border:3px solid var(--outline);
     border-radius:20px;
     padding:.65rem .8rem
   }
@@ -978,8 +1005,8 @@
     width:62px;
     height:62px;
     border-radius:16px;
-    background:#fff;
-    border:3px solid var(--navy);
+    background:var(--tile-white);
+    border:3px solid var(--outline);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -1010,7 +1037,7 @@
     border:3px solid var(--primary);
     border-radius:26px;
     padding:0;
-    background:#fff;
+    background:var(--card);
     color:var(--ink);
     box-shadow:0 24px 48px rgba(15,23,42,.4);
     animation:pop .3s
@@ -1021,7 +1048,7 @@
   }
   
   .modal-header {
-    background:var(--primary);
+    background:var(--header-bg);
     color:#fff;
     padding:1rem 1.25rem;
     display:flex;
@@ -1031,13 +1058,13 @@
   }
   
   .modal-header-kid {
-    background:var(--navy)
+    background:var(--header-bg)
   }
   
   .modal-close-btn {
-    background:#fff;
+    background:var(--btn-neutral-bg);
     color:var(--ink);
-    border:2px solid #fff;
+    border:2px solid var(--btn-neutral-border);
     border-radius:12px;
     min-width:48px;
     min-height:48px;
@@ -1067,7 +1094,7 @@
     padding:.7rem;
     border:2px solid var(--line-strong);
     border-radius:16px;
-    background:#fff;
+    background:var(--card);
     cursor:pointer;
     font-weight:700;
     text-align:center;
@@ -1140,7 +1167,7 @@
     padding:.65rem .9rem;
     font:1.05rem var(--font);
     color:var(--ink);
-    background:#fff;
+    background:var(--field-bg);
     border:2px solid var(--line-strong);
     border-radius:14px;
     width:100%
@@ -1180,7 +1207,7 @@
   }
   
   .form-card {
-    background:#fff;
+    background:var(--card);
     border:2px solid var(--line);
     border-radius:var(--r);
     padding:1.5rem;
@@ -1234,7 +1261,7 @@
   
   /* Pie de página */
   .site-footer {
-    background:#0F172A;
+    background:var(--footer-bg);
     color:#fff;
     padding:1.25rem 1rem;
     margin-top:2.5rem
@@ -1245,7 +1272,7 @@
   }
   
   .site-footer-nino {
-    background:var(--navy)
+    background:var(--footer-bg)
   }
   
   .footer-inner {
@@ -1323,4 +1350,170 @@
       flex-direction:column;
       text-align:center
     }
+  }
+
+  /* =====================================================================
+     TEMAS: paleta por público + modo oscuro opcional
+     ---------------------------------------------------------------------
+     · Adultos mayores  → :root (claro)  /  html[data-theme="dark"] (oscuro)
+     · Niños            → .theme-nino    /  html[data-theme="dark"] .theme-nino
+       (la tarjeta "Niños" del menú principal usa la paleta infantil)
+     El atributo data-theme lo pone el script del <head> y el botón del encabezado.
+     Los dibujos (personajes, pastillas, íconos) conservan sus colores originales.
+     ===================================================================== */
+  html {
+    color-scheme:light
+  }
+
+  html[data-theme="dark"] {
+    color-scheme:dark
+  }
+
+  /* Niños · claro: cielo suave, tarjetas crema, contornos azul marino (la estética de siempre) */
+  .theme-nino,
+  .menu-choice-kid {
+    --bg:#D8ECF8;
+    --sky:#D8ECF8;
+    --cloud:#FFFFFF;
+    --card:#FFFDF7;
+    --ink:#123973;
+    --muted:#2C4A7C;
+    --line:#9CC4EA;
+    --line-strong:#4A6FA5;
+    --primary:#1D4E9B;
+    --primary-dark:#123673;
+    --primary-soft:#DCEBFB;
+    --on-primary:#FFFFFF;
+    --green-soft:#DDF4DD;
+    --green-ink:#1B5E2A;
+    --amber:#FFF4C2;
+    --amber-ink:#7A4306;
+    --error:#A31D1D;
+    --error-bg:#FDE3E1;
+    --surface-2:#EEF6FC;
+    --soft-sky:#EAF5FD;
+    --soft-yellow:#FFF4C2;
+    --inset-bg:rgba(255,255,255,.75);
+    --field-bg:#FFFFFF;
+    --header-bg:#123973;
+    --footer-bg:#123973;
+    --btn-neutral-bg:#FFFDF7;
+    --btn-neutral-border:#FFFDF7;
+    --btn-neutral-shadow:#8FB0DA;
+    --outline:#123973;
+    --outline-shadow:#123973;
+    --focus:3px solid #C2410C;
+    --on-green-solid:#FFFFFF;
+    --on-amber-solid:#FFFFFF;
+    --tile-sky:#E3F1FC;
+    --tile-green:#DDF5DF;
+    --tile-orange:#FFE8CF;
+    --tile-white:#FFFFFF;
+  }
+
+  /* Adultos mayores · oscuro: gris cálido (no negro puro), texto marfil, verde azulado claro */
+  html[data-theme="dark"] {
+    --bg:#14181C;
+    --card:#1F252B;
+    --ink:#EDE8DD;
+    --muted:#B9C1C4;
+    --line:#36404A;
+    --line-strong:#8794A0;
+    --primary:#6FC7CF;
+    --primary-dark:#3C8C94;
+    --primary-soft:#1D3A3F;
+    --on-primary:#0A2A30;
+    --green-soft:#1E3A27;
+    --green-ink:#94DFA0;
+    --amber:#3A2D12;
+    --amber-ink:#F3C877;
+    --error:#FFB4AB;
+    --error-bg:#4A211E;
+    --on-green-solid:#0C2614;
+    --on-amber-solid:#2B1D05;
+    --surface-2:#272E35;
+    --soft-sky:#1D3A3F;
+    --soft-yellow:#3A2D12;
+    --inset-bg:rgba(0,0,0,.25);
+    --field-bg:#11161A;
+    --header-bg:#0F3B41;
+    --footer-bg:#0C1013;
+    --btn-neutral-bg:#1F252B;
+    --btn-neutral-border:#6FC7CF;
+    --btn-neutral-shadow:#0B1114;
+    --outline:#6FC7CF;
+    --outline-shadow:#3C8C94;
+    --focus:3px solid #FFD166;
+  }
+
+  /* Niños · oscuro: cielo de noche, contornos azul claro, "stickers" (dibujos) sobre fichas claras */
+  html[data-theme="dark"] .theme-nino,
+  html[data-theme="dark"] .menu-choice-kid {
+    --bg:#0E1C45;
+    --sky:#0E1C45;
+    --cloud:#172B62;
+    --card:#17295A;
+    --ink:#EAF1FF;
+    --muted:#BFCDEB;
+    --line:#2E4A8C;
+    --line-strong:#9DBDF5;
+    --primary:#9CC0FA;
+    --primary-dark:#5E86CC;
+    --primary-soft:#22397A;
+    --on-primary:#0B1E48;
+    --green-soft:#1F4030;
+    --green-ink:#9BE3A8;
+    --amber:#3B3413;
+    --amber-ink:#FFD66B;
+    --error:#FFB4AB;
+    --error-bg:#4A1F28;
+    --surface-2:#1D3270;
+    --soft-sky:#1D3270;
+    --soft-yellow:#3B3413;
+    --inset-bg:rgba(0,0,0,.25);
+    --field-bg:#0E1C45;
+    --header-bg:#0A1636;
+    --footer-bg:#0A1636;
+    --btn-neutral-bg:#17295A;
+    --btn-neutral-border:#9CC0FA;
+    --btn-neutral-shadow:#050C24;
+    --outline:#9DBDF5;
+    --outline-shadow:#050C24;
+    --focus:3px solid #FFD166;
+    --on-green-solid:#0C2614;
+    --on-amber-solid:#2B1D05;
+    --tile-sky:#D6E7F9;
+    --tile-green:#CFEFD3;
+    --tile-orange:#F8DFC3;
+    --tile-white:#F2F7FF;
+  }
+
+  /* Botón de modo claro/oscuro (lo crea app.js dentro del encabezado) */
+  .btn-theme {
+    gap:.55rem
+  }
+
+  .btn-theme svg {
+    flex-shrink:0
+  }
+
+  /* =====================================================================
+     TECLADO
+     ===================================================================== */
+  /* El contenido principal recibe el foco al usar "Saltar al contenido": sin recuadro gigante */
+  main:focus {
+    outline:none
+  }
+
+  /* El personaje elegido tenía un contorno verde que tapaba el foco: ahora el foco manda */
+  .emotion-btn:focus-visible,
+  .emotion-btn[aria-pressed="true"]:focus-visible {
+    outline:var(--focus);
+    outline-offset:4px
+  }
+
+  /* Opciones visuales (forma/color): foco claro también en modo oscuro */
+  .visual-option:has(input:focus-visible) {
+    outline:var(--focus);
+    outline-offset:3px
   }
